@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hospital Management Login</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <head>
+      <title>Hospital Management Login</title>
+      <link rel="stylesheet" href="{% static 'style.css' %}">
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+      <style>
+        body {
+          background: #f2f2f2 url('{% static "images/background.jpg" %}') no-repeat center center fixed;
+          background-size: cover;
+          font-family: 'Montserrat', sans-serif;
+          color: #333;
+        }
+        .container {
+          max-width: 400px;
+          margin: 0 auto;
+          padding: 40px;
+          background-color: rgba(255, 255, 255, 0.9);
+          border-radius: 10px;
+          box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        .logo {
+          display: block;
+          margin: 0 auto;
+          width: 100px;
+          height: 100px;
+          object-fit: cover;
+          border-radius: 50%;
+          margin-bottom: 20px;
+        }
+        h1 {
+          text-align: center;
+          font-size: 36px;
+          margin-bottom: 20px;
+          color: #333;
+          text-shadow: 2px 2px #fff;
+        }
+        label {
+          display: block;
+          margin-bottom: 10px;
+          font-size: 18px;
+        }
+        input {
+          display: block;
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 20px;
+          font-size: 18px;
+          border-radius: 5px;
+          border: none;
+          background-color: #f9f9f9;
+          box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+        }
+        button {
+          display: block;
+          width: 100%;
+          padding: 10px;
+          margin-top: 20px;
+          font-size: 18px;
+          border-radius: 5px;
+          border: none;
+          background-color: #3498db;
+          color: #fff;
+          cursor: pointer;
+          transition: background-color 0.3s;
+          box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+        }
+        button:hover, button:focus {
+          background-color: #2980b9;
+        }
+        .signup-link {
+          text-align: center;
+          margin-top: 20px;
+          font-size: 16px;
+          color: #fff;
+          text-shadow: 1px 1px #333;
+        }
+        .signup-link a {
+          color: #fff;
+          text-decoration: none;
+        }
+        .signup-link a:hover {
+          text-decoration: underline;
+        }
+        @media (max-width:480px) {
+  .container {
+  padding: 20px;
+  }
+  h1 {
+  font-size: 28px;
+  }
+  label {
+  font-size: 16px;
+  }
+  input {
+  font-size: 16px;
+  }
+  button {
+  font-size: 16px;
+  }
+  }
+  </style>
+    </head>
+  </head>
+  <body>
+  
+    <div class="container">
+      <img src="{% static 'images/logo.png' %}" alt="Hospital Icon" class="logo">
+      <h1>Hospital Management Login</h1>
+      <form action="{% url 'Login' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="number" id="username" name="user" placeholder="Enter your userid" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="pasw" placeholder="Enter your password" required>
+        </div>
+        {{error}}
+        <button name = "Login" type="submit">Login</button>
+        </form>
+        <form action= "{% url 'forgot' %}">
+        <div class="signup-link">
+          Forgot password ? <button name = "forgot" type="submit">click here</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

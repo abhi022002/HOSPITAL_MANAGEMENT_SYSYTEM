@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Doctor Dashboard</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<style>
+ @import url('https://fonts.googleapis.com/css?family=Montserrat');
+div{
+	display: flex;
+}
+body {
+	font-family: 'Montserrat', sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+table {
+	
+	border-collapse: collapse;
+	width: 40%;
+	margin-top: 20px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+	padding-left: 30px;
+}
+th, td {
+	text-align: left;
+	padding: 12px;
+	border-bottom: 1px solid #ddd;
+}
+th {
+	background-color: #cbc68a;
+	color: rgb(10, 8, 8);
+}
+form {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+label {
+	display: block;
+	margin-bottom: 10px;
+	font-weight: bold;
+	font-size: 16px;
+}
+input[type=text], input[type=password], input[type=number], textarea {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize: vertical;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 14px;
+	color: #333;
+	margin-bottom: 20px;
+}
+input[type=submit] {
+	background-color: brown;
+	color: white;
+	padding: 7px 11px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-top: 10px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	transition: background-color 0.2s ease-in-out;
+}
+input[type=submit]:hover {
+	background-color: #45a049;
+}
+
+.yes-btn{
+	background-color: brown;
+
+}
+
+.row{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px 40px;
+	background-color: #4cafaf;
+	color: white;
+}
+
+.past_records{
+	background-color: #fff;
+	color: #4CAF50;
+	padding: 8px 16px;
+	border: 1px solid #4CAF50;
+	border-radius: 4px;
+	cursor: pointer;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.past_records:hover {
+	background-color: #4c9baf;
+	color: white;
+}
+
+h1 {
+	font-size: 24px;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+	color: #333;
+}
+.doctor-form {
+	margin-top: 20px;
+	flex-direction: column;
+	align-items: center;
+	width: 400px;
+	margin: 0 auto;
+}
+.doctor-form label {
+	display: inline-block;
+	width: 120px;
+	margin-bottom: 10px;
+	font-weight: bold;
+	font-size: 14px;
+	color: #333;
+}
+
+.doctor-form input[type=text], .doctor-form input[type=password], .doctor-form input[type=number], .doctor-form textarea {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize: vertical;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 14px;
+	color: #333;
+}
+
+.doctor-form input[type=submit] {
+	background-color: brown;
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-top: 20px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	transition: background-color 0.2s ease-in-out;
+}
+
+.doctor-form input[type=submit]:hover {
+	background-color: #45a049;
+}
+.input-container {
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        display: block;
+  		margin-bottom: 20px;
+    }
+
+    .input-container label {
+        font-weight: bold;
+        font-size: 16px;
+        width: 160px;
+        margin-right: 20px;
+    }
+
+    .input-container input[type=text],
+    .input-container input[type=password],
+    .input-container input[type=number],
+    .input-container textarea {
+        width: 90%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+        color: #333;
+    }
+	.test{
+		display: list-item;
+		padding-left: 300px;
+	}
+	</style>
+</head>
+<body>
+	<div class="row">
+		<h1>Doctor Dashboard</h1>
+		<form action="{% url 'past_records' %}">
+		<button class="past_records">Past Appointments</button>
+		</form>
+		<form action="{% url 'past_prescriptions' %}">
+			<button class="past_records">Past Prescriptions</button>
+		</form>
+		<form action="{% url 'a' %}">
+			<button class="past_records">Logout</button>
+		</form>
+	</div>
+	<div class="try">
+		
+	<table>
+		<thead>
+			<tr>
+				<th>Appointment ID</th>
+				<th>Patient ID</th>
+				<th>start Time</th>
+				<th>Complete the appointment</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			{% for results in data %}
+			<tr>
+				<form action="{% url 'finish' %}" method="POST">
+				{% csrf_token %}
+				<td>{{ results.id }}</td>
+				<td>{{ results.patientid.ssn }}</td>
+				<td>{{ results.starttime }}</td>
+				<input type="hidden" name="result_id" value="{{ results.id }}">
+				<td><input type="submit" value="Finish"></td>
+				</form>
+			</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+	<div class="test">
+		<form action="{% url 'queryp' %}">
+			<h2>Query Patient Information</h2>
+			{{error}}
+			<label for="patient">Patient_id:</label>
+			<input type="number" id="patient" name="patient" placeholder="Enter patient ID...">
+			<input type="submit" value="Search">
+		</form>
+			<form action="{% url 'prescriptions' %}">
+			<h2>Record Prescriptions</h2>
+			<label for="patient_name">Patient Id:</label>
+			<input type="number" id="patient_name" name="patient_name" placeholder="Enter patient Id...">
+			<label for="prescriptions">Prescriptions:</label>
+			<textarea id="prescriptions" name="prescriptions" placeholder="Enter prescriptions..."></textarea>
+			<input type="submit" value="Record">
+		</form>
+	</div>
+	
+</div>	
+</body>
+</html>

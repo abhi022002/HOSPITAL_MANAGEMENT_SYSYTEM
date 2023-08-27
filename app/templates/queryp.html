@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello World</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+	<style>
+body {
+    background-color: #f2f2f2;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 48px;
+    color: rgb(222, 15, 15);
+}
+
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+}
+
+.table {
+  margin-bottom: 50px;
+}
+
+.table th {
+  text-align: center;
+  font-weight: bold;
+  background-color: #88a1bc;
+  color: #fff;
+  padding: 10px;
+  border-top: none;
+}
+
+.table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 20px 10px;
+}
+
+.btn-primary {
+  background-color: #fab689;
+  border-color: #FF8C00;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.btn-primary:hover {
+  background-color: #f2988c;
+  border-color: #FFA500;
+}
+
+.navbar {
+  background-color: #fff;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 32px;
+  color: #b8b26e;
+}
+
+.navbar-nav .nav-link {
+  font-size: 18px;
+  color: #333;
+}
+
+.back-button {
+  margin-left: 10px;
+}
+
+.table-info {
+  background-color: #c7ecee;
+  color: #333;
+  border-color: #c7ecee;
+}
+
+.table-info th {
+  background-color: #d0f3a7;
+  color: #fff;
+  border-color: #6ab0de;
+}
+
+.table-success {
+  background-color: #d2f7e0;
+  color: #333;
+  border-color: #d2f7e0;
+}
+
+.table-success th {
+  background-color: #36d7b7;
+  color: #fff;
+  border-color: #36d7b7;
+}
+
+.table-danger {
+  background-color: #f5c6cb;
+  color: #333;
+  border-color: #f5c6cb;
+}
+
+.table-danger th {
+  background-color: #dc3545;
+  color: #fff;
+  border-color: #dc3545;
+}
+
+	</style>
+	
+	
+</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-light bg-light">
+		<a class="navbar-brand" href="#">Patient Information</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav mr-auto">
+				
+			</ul>
+			<form action = "{% url 'back_doc' %}">
+				<button class="btn btn-outline-secondary back-button">Back</button>
+			</form>
+			
+		</div>
+	</nav>
+	
+	<div class="container">
+		<table class="table table-primary">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Gender</th>
+					<th>Age</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{ data.ssn }}</td>
+					<td>{{ data.name }}</td>
+					<td>{{ data.gender }}</td>
+                	<td>{{ data.age }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="table table-primary">
+			<thead>
+				<tr>
+					<th>Prescriptions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for x in P %}
+				<tr>
+					<td>{{ x.dose }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<table class="table table-primary">
+			<thead>
+				
+				<tr>
+					<th>Symptoms</th>
+					<th>Treatments</th>
+					<th>Test Results</th>
+					<th>Image</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for y in T %}
+				<tr>
+					<form action="{% url 'view_xray' %}" method="POST">
+						{% csrf_token %}
+					<td>{{ y.symptoms }}</td>
+					<td>{{ y.treatments }}</td>
+					<td>{{ y.test_results }}</td>
+					<input type="hidden" name="result_id" value="{{y.treatment_id}}">
+                	<td>
+                    	<button type="submit" class="btn btn-primary">View</button>
+                	</td>
+					</form>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<!-- Bootstrap JS -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
